@@ -1,10 +1,11 @@
 import java.util.LinkedList;
 
-public class Fila<T> {
+public class FilaCircular<T> {
     private LinkedList<T> elementos;
-
-    public Fila() {
+    Integer posicaoAtual;
+    public FilaCircular() {
         this.elementos = new LinkedList<>();
+        this.posicaoAtual = null;
     }
 
     public void enfileirar(T elemento) {
@@ -31,5 +32,17 @@ public class Fila<T> {
             throw new IllegalStateException("A fila está vazia.");
         }
         return elementos.getFirst();
-    }    
+    }
+    
+    public T proximo() {
+        if (estaVazia()) {
+            throw new IllegalStateException("A fila está vazia.");
+        }
+        if (posicaoAtual == null) {
+            posicaoAtual = 0;
+        } else {
+            posicaoAtual = (posicaoAtual + 1) % elementos.size();
+        }
+        return elementos.get(posicaoAtual);
+    }
 }
